@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help Jude Relocate to Kenya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --red-border: #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0;
+      background: linear-gradient(135deg, #0c1445 0%, #0f172a 50%, #000 100%);
+    }
+    .blob-wrap { position: absolute; inset: 0; opacity: 0.25; pointer-events: none; }
+    .blob {
+      position: absolute; width: 380px; height: 380px;
+      border-radius: 50%; filter: blur(80px); animation: blob 7s infinite;
+    }
+    .blob-1 { top:0; left:-40px; background:#3b82f6; }
+    .blob-2 { top:0; right:-40px; background:#06b6d4; animation-delay:2s; }
+    .blob-3 { bottom:-60px; left:80px; background:#6366f1; animation-delay:4s; }
+    @keyframes blob {
+      0%,100%{transform:translate(0,0) scale(1);}
+      25%{transform:translate(20px,-50px) scale(1.1);}
+      50%{transform:translate(-20px,20px) scale(0.9);}
+      75%{transform:translate(50px,50px) scale(1.05);}
+    }
+
+    .content { position: relative; z-index: 10; }
+    .container-md { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+    .container-sm { max-width: 620px; margin: 0 auto; padding: 0 16px; }
+
+    /* Hero */
+    .hero { padding: clamp(48px,10vw,80px) 16px 40px; text-align: center; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px;
+      background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 999px; font-size: 13px; color: #93c5fd;
+      margin-bottom: 24px; backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      font-family: 'Montserrat', sans-serif; font-weight: 900;
+      font-size: clamp(2.4rem, 8vw, 5.5rem); line-height: 1.05; margin-bottom: 16px;
+    }
+    .h1-grad {
+      background: linear-gradient(90deg,#60a5fa,#22d3ee,#3b82f6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(0.95rem,2.5vw,1.25rem); color: var(--gray-300);
+      max-width: 520px; margin: 0 auto 36px; line-height: 1.7;
+    }
+
+    /* Progress */
+    .progress-card {
+      background: linear-gradient(135deg,rgba(30,41,59,0.45),rgba(15,23,42,0.45));
+      backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px; padding: clamp(20px,4vw,36px);
+      max-width: 580px; margin: 0 auto 36px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+    .prog-row { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
+    .prog-div { width:1px; height:44px; background:rgba(255,255,255,0.1); flex-shrink:0; }
+    .prog-label { font-size:12px; color:var(--gray-400); margin-bottom:4px; }
+    .prog-amt {
+      font-family:'Montserrat',sans-serif; font-size:clamp(1.4rem,4vw,2rem); font-weight:700;
+    }
+    .prog-amt.r { text-align:right; }
+    .prog-bar-bg { height:10px; background:rgba(51,65,85,0.6); border-radius:999px; overflow:hidden; margin-bottom:14px; }
+    .prog-bar-fill {
+      height:100%; width:23.3%;
+      background:linear-gradient(90deg,#2563eb,#22d3ee,#3b82f6);
+      border-radius:999px; position:relative;
+    }
+    .prog-bar-fill::after {
+      content:''; position:absolute; inset:0;
+      background:rgba(255,255,255,0.2); animation:pulse 2s infinite;
+    }
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .prog-foot { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .still-needed {
+      font-family:'Montserrat',sans-serif; font-size:clamp(1rem,3vw,1.3rem);
+      font-weight:700; color:#22d3ee;
+    }
+    .pct { font-size:12px; color:var(--gray-400); display:flex; align-items:center; gap:5px; white-space:nowrap; }
+
+    /* CTA */
+    .cta-wrap { text-align:center; margin-bottom:52px; }
+    .btn-donate {
+      display:inline-flex; align-items:center; gap:10px;
+      padding:clamp(14px,3vw,20px) clamp(28px,6vw,48px);
+      font-family:'Montserrat',sans-serif; font-size:clamp(0.95rem,2.5vw,1.1rem); font-weight:700;
+      color:#fff; background:linear-gradient(90deg,#2563eb,#22d3ee);
+      border:none; border-radius:14px; cursor:pointer; text-decoration:none;
+      transition:transform .25s,box-shadow .25s;
+      box-shadow:0 0 40px rgba(37,99,235,0.4);
+    }
+    .btn-donate:hover { transform:scale(1.05); box-shadow:0 0 60px rgba(37,99,235,0.6); }
+    .btn-note { margin-top:10px; font-size:12px; color:var(--gray-400); }
+
+    /* Carousel */
+    .carousel-wrap { max-width:960px; margin:0 auto 60px; padding:0 16px; }
+    .carousel {
+      position:relative; border-radius:20px; overflow:hidden;
+      border:1px solid rgba(255,255,255,0.1);
+      box-shadow:0 25px 50px rgba(0,0,0,0.5);
+      aspect-ratio:16/9;
+    }
+    .slide { position:absolute; inset:0; opacity:0; transition:opacity .5s ease; }
+    .slide.active { opacity:1; z-index:2; }
+    .slide img { width:100%; height:100%; object-fit:cover; display:block; }
+    .car-grad {
+      position:absolute; inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,0.35) 0%,transparent 50%);
+      pointer-events:none; z-index:3;
+    }
+    .car-btn {
+      position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+      background:rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.12);
+      border-radius:12px; padding:clamp(8px,2vw,14px);
+      cursor:pointer; color:#fff; backdrop-filter:blur(8px); transition:background .2s;
+    }
+    .car-btn:hover { background:rgba(0,0,0,0.7); }
+    .car-btn.prev { left:clamp(8px,2vw,20px); }
+    .car-btn.next { right:clamp(8px,2vw,20px); }
+    .car-btn svg { width:20px; height:20px; display:block; }
+    .car-dots {
+      position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+      display:flex; gap:8px; z-index:10;
+    }
+    .dot {
+      height:7px; border-radius:999px; background:rgba(255,255,255,0.3);
+      width:7px; border:none; cursor:pointer; transition:all .3s;
+    }
+    .dot.active { background:linear-gradient(90deg,#2563eb,#22d3ee); width:32px; }
+
+    /* Story */
+    .story-card {
+      background:linear-gradient(135deg,rgba(30,41,59,0.3),rgba(15,23,42,0.3));
+      backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1);
+      border-radius:24px; padding:clamp(24px,5vw,56px);
+      box-shadow:0 25px 50px rgba(0,0,0,0.4); margin-bottom:60px;
+    }
+    .story-card p {
+      color:#e2e8f0; line-height:1.8;
+      font-size:clamp(0.93rem,2vw,1.05rem); margin-bottom:18px;
+    }
+    .story-opener { font-size:clamp(1.05rem,2.5vw,1.35rem)!important; margin-bottom:24px!important; }
+
+    .incident {
+      background:rgba(127,29,29,0.15); border-left:4px solid var(--red-border);
+      border-radius:0 14px 14px 0; padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px);
+      margin-bottom:14px;
+    }
+    .incident p { margin-bottom:14px; }
+    .incident a {
+      display:inline-flex; align-items:center; gap:6px;
+      color:#60a5fa; font-size:14px; text-decoration:none; transition:color .2s;
+    }
+    .incident a:hover { color:#93c5fd; }
+
+    .and-more {
+      font-family:'Montserrat',sans-serif; font-size:clamp(1rem,2.5vw,1.3rem);
+      font-weight:700; color:#22d3ee; margin:24px 0!important;
+    }
+
+    .persecution {
+      background:linear-gradient(135deg,rgba(8,47,73,0.35),rgba(12,74,110,0.35));
+      border:1px solid rgba(6,182,212,0.2); border-radius:16px;
+      padding:clamp(18px,4vw,32px); margin:28px 0;
+    }
+    .persecution .hl {
+      font-family:'Montserrat',sans-serif; font-size:clamp(0.93rem,2vw,1.15rem);
+      font-weight:700; color:#67e8f9; margin-bottom:10px!important;
+    }
+    .links-row { display:flex; flex-wrap:wrap; gap:14px; margin-top:16px; }
+    .persecution a {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:13px; color:#60a5fa; text-decoration:none;
+    }
+    .persecution a:hover { color:#93c5fd; }
+
+    .am-i-next {
+      font-family:'Montserrat',sans-serif; font-size:clamp(1.1rem,3vw,1.8rem);
+      font-weight:700; color:#f87171; text-align:center;
+      padding:clamp(20px,4vw,36px); background:rgba(127,29,29,0.15);
+      border-radius:16px; margin:28px 0;
+    }
+
+    .bur-box {
+      background:linear-gradient(135deg,rgba(23,37,84,0.35),rgba(8,47,73,0.35));
+      border:1px solid rgba(59,130,246,0.2); border-radius:16px;
+      padding:clamp(18px,4vw,32px); margin:28px 0;
+    }
+    .bur-box .hl {
+      font-family:'Montserrat',sans-serif; font-size:clamp(0.93rem,2vw,1.1rem);
+      font-weight:700; color:#93c5fd; margin-bottom:8px!important;
+    }
+
+    .meet-box {
+      background:linear-gradient(135deg,rgba(46,16,101,0.3),rgba(23,37,84,0.3));
+      border:2px solid rgba(168,85,247,0.3); border-radius:16px;
+      padding:clamp(22px,4vw,40px); text-align:center; margin:28px 0;
+    }
+    .meet-box .hl {
+      font-family:'Montserrat',sans-serif; font-size:clamp(0.93rem,2.5vw,1.2rem);
+      font-weight:700; color:#d8b4fe; margin-bottom:10px!important;
+    }
+
+    .god-bless { text-align:center; font-size:1.2rem; color:var(--gray-300); margin-top:28px!important; }
+
+    /* Connect */
+    .connect-section { margin-bottom:60px; }
+    .connect-section h2 {
+      font-family:'Montserrat',sans-serif; font-weight:800;
+      font-size:clamp(1.3rem,3vw,1.8rem); text-align:center; margin-bottom:28px;
+      background:linear-gradient(90deg,#60a5fa,#22d3ee);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    }
+    .connect-links { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+    .cl {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:11px 20px; border-radius:11px;
+      font-size:14px; font-weight:600; color:#fff;
+      text-decoration:none; transition:transform .2s,box-shadow .2s;
+    }
+    .cl:hover { transform:scale(1.06); }
+    .cl-wa  { background:linear-gradient(135deg,#16a34a,#15803d); }
+    .cl-wa:hover  { box-shadow:0 8px 24px rgba(22,163,74,0.4); }
+    .cl-li  { background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+    .cl-li:hover  { box-shadow:0 8px 24px rgba(37,99,235,0.4); }
+    .cl-web { background:linear-gradient(135deg,#7c3aed,#6d28d9); }
+    .cl-web:hover { box-shadow:0 8px 24px rgba(124,58,237,0.4); }
+    .cl-ngo { background:linear-gradient(135deg,#db2777,#be185d); }
+    .cl-ngo:hover { box-shadow:0 8px 24px rgba(219,39,119,0.4); }
+    .cl-pub { background:linear-gradient(135deg,#ea580c,#c2410c); }
+    .cl-pub:hover { box-shadow:0 8px 24px rgba(234,88,12,0.4); }
+
+    /* Final CTA */
+    .final-cta {
+      background:linear-gradient(135deg,rgba(23,37,84,0.55),rgba(8,47,73,0.55));
+      border:1px solid rgba(59,130,246,0.2); border-radius:24px;
+      padding:clamp(36px,6vw,64px) clamp(20px,5vw,56px);
+      text-align:center; margin-bottom:60px; backdrop-filter:blur(20px);
+    }
+    .final-cta h2 {
+      font-family:'Montserrat',sans-serif; font-weight:900;
+      font-size:clamp(1.6rem,5vw,2.8rem);
+      background:linear-gradient(90deg,#60a5fa,#22d3ee);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:14px;
+    }
+    .final-cta p { font-size:clamp(0.95rem,2vw,1.1rem); color:var(--gray-300); margin-bottom:32px; }
+
+    footer {
+      border-top:1px solid rgba(255,255,255,0.08);
+      padding:28px 16px; text-align:center;
+      color:var(--gray-400); font-size:13px;
+      background:rgba(0,0,0,0.5);
+    }
+
+    @media(max-width:480px){
+      .carousel { aspect-ratio:4/3; }
+      .prog-div { display:none; }
+      .prog-row { flex-wrap:wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="blob-wrap">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <section class="hero">
+    <div class="badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Verified Campaign
+    </div>
+    <h1><span class="h1-grad">Help Jude</span><br><span>Move to Kenya</span></h1>
+    <p class="hero-sub">A story of survival, purpose, and a future worth fighting for</p>
+
+    <div class="progress-card">
+      <div class="prog-row">
+        <div>
+          <p class="prog-label">Raised</p>
+          <p class="prog-amt">$1,400</p>
+        </div>
+        <div class="prog-div"></div>
+        <div>
+          <p class="prog-label" style="text-align:right">Goal</p>
+          <p class="prog-amt r">$6,000</p>
+        </div>
+      </div>
+      <div class="prog-bar-bg"><div class="prog-bar-fill"></div></div>
+      <div class="prog-foot">
+        <span class="still-needed">$4,600 Still Needed</span>
+        <span class="pct">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          23.3% funded
+        </span>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a href="https://selar.com/showlove/jude-kenya" target="_blank" rel="noopener noreferrer" class="btn-donate">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Donate Now
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <p class="btn-note">Secure payment via Selar</p>
+    </div>
+  </section>
+
+  <!-- Carousel -->
+  <div class="carousel-wrap">
+    <div class="carousel">
+      <div class="slide active" id="slide-0"><img src="image1.jpg" alt="Youth Empowerment Initiative"></div>
+      <div class="slide" id="slide-1"><img src="image2.jpg" alt="Empowering the Next Generation"></div>
+      <div class="slide" id="slide-2"><img src="image3.jpg.PNG" alt="Jude Iria with Students"></div>
+      <div class="slide" id="slide-3"><img src="image4.jpg.PNG" alt="Teaching and Mentoring"></div>
+      <div class="car-grad"></div>
+      <button class="car-btn prev" onclick="prevSlide()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="car-btn next" onclick="nextSlide()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="car-dots">
+        <button class="dot active" onclick="goToSlide(0)"></button>
+        <button class="dot" onclick="goToSlide(1)"></button>
+        <button class="dot" onclick="goToSlide(2)"></button>
+        <button class="dot" onclick="goToSlide(3)"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Story -->
+  <div class="container-md">
+    <div class="story-card">
+      <p class="story-opener">Every day I wake up to another missing friend, classmate, or family member.</p>
+
+      <div class="incident">
+        <p>I knew <strong>Abu Momoh Tahir</strong>. We were in the same faculty at Ambrose Alli University in Ekpoma. Abu was lively, full of dreams. In March 2024, kidnappers murdered Abu and held his older brother, a doctor, for ransom. His family is still traumatized.</p>
+        <a href="https://punchng.com/kidnappers-kill-younger-brother-hold-doctor-sibling-in-edo/?amp" target="_blank" rel="noopener noreferrer">
+          Read the full story
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <div class="incident">
+        <p>I knew <strong>Scottzy</strong>. He studied in the Faculty of Physical Sciences at the same university where I studied. Scottzy was kind, brilliant, and had his whole life ahead of him. His kidnappers demanded ₦5 million naira before going silent. His family still doesn't know if he's alive.</p>
+        <a href="https://punchng.com/my-brothers-kidnappers-demanded-n5m-before-going-silent-sibling/?amp" target="_blank" rel="noopener noreferrer">
+          Read the full story
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+      <p class="and-more">And these are just two. The list goes on.</p>
+
+      <div class="persecution">
+        <p class="hl">As a Christian in Nigeria, I know the target on my back grows bigger every day.</p>
+        <p>Christians in Nigeria face systematic persecution — killings, kidnappings, and attacks that have become so common they barely make headlines anymore. But for those of us living here, it's not statistics. It's my daily reality.</p>
+        <div class="links-row">
+          <a href="https://globalchristianrelief.org/resources/countries/nigeria/?c_src=2603NB1&c_src2=2603NB1-NB1" target="_blank" rel="noopener noreferrer">
+            Documentation <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://www.bbc.com/pidgin/articles/c9q5yexzqe0o" target="_blank" rel="noopener noreferrer">
+            BBC Article <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <p class="am-i-next">I wake up every day asking myself: Am I next?</p>
+
+      <p>I'm fighting for my life. I've invested most of my money into a business that's currently at risk because of my environment. I have helped young adults and teens with free skill empowerment, and I'm someone with visions — but my environment is becoming toxic.</p>
+
+      <p>I've done my research. Kenya offers me safety, stability, and opportunity. I can continue to work remotely and assist young adults both remotely and physically as I'm strengthened.</p>
+
+      <div class="bur-box">
+        <p class="hl">The money is not for luxury — it's strictly for relocation logistics.</p>
+        <p style="color:#cbd5e1">I've saved $1,400 and am continuing to save, but time is running out.</p>
+      </div>
+
+      <p>Please save my life by donating to this cause. You're helping my vision stay alive, and you're helping many lives just by donating.</p>
+
+      <div class="meet-box">
+        <p class="hl">But before donating, please take a moment to meet with me.</p>
+        <p style="color:#cbd5e1">I want you to hear my story in person and get to know the person you are going to be helping.</p>
+      </div>
+
+      <p class="god-bless">God bless you.</p>
+    </div>
+  </div>
+
+  <!-- Connect -->
+  <div class="container-sm">
+    <div class="connect-section">
+      <h2>Connect With Me</h2>
+      <div class="connect-links">
+        <a href="https://wa.me/message/IW6ARGRWYXSZD1" target="_blank" rel="noopener noreferrer" class="cl cl-wa">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 0C5.373 0 0 5.373 0 11.99c0 2.106.549 4.087 1.508 5.807L0 24l6.388-1.676A11.932 11.932 0 0 0 11.99 24C18.607 24 24 18.627 24 12.01 24 5.373 18.607 0 11.99 0zm0 21.818a9.808 9.808 0 0 1-5.003-1.368l-.358-.214-3.72.976.994-3.626-.235-.373A9.798 9.798 0 0 1 2.182 12C2.182 6.57 6.56 2.182 12 2.182c5.43 0 9.818 4.387 9.818 9.818 0 5.44-4.388 9.818-9.828 9.818z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://www.linkedin.com/in/jude-iria" target="_blank" rel="noopener noreferrer" class="cl cl-li">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://www.judeiria.com" target="_blank" rel="noopener noreferrer" class="cl cl-web">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Website
+        </a>
+        <a href="https://www.instagram.com/p/DVYIAelDC4s/?img_index=7&igsh=bmF5dWptcm53ZzVu" target="_blank" rel="noopener noreferrer" class="cl cl-ngo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          NGO
+        </a>
+        <a href="https://punchng.com/how-jude-iria-is-shaping-lives-through-mentoring/?amp" target="_blank" rel="noopener noreferrer" class="cl cl-pub">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Publication
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <div class="container-sm">
+    <div class="final-cta">
+      <h2>Time Is Running Out</h2>
+      <p>Every contribution saves a life and keeps hope alive</p>
+      <a href="https://selar.com/showlove/jude-kenya" target="_blank" rel="noopener noreferrer" class="btn-donate">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Donate Now
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 Jude Iria. All rights reserved.</footer>
+</div>
+
+<script>
+  let current = 0;
+  const total = 4;
+  function goToSlide(n) {
+    document.getElementById('slide-' + current).classList.remove('active');
+    document.querySelectorAll('.dot')[current].classList.remove('active');
+    current = (n + total) % total;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.querySelectorAll('.dot')[current].classList.add('active');
+  }
+  function nextSlide() { goToSlide(current + 1); }
+  function prevSlide() { goToSlide(current - 1); }
+  setInterval(nextSlide, 5000);
+</script>
+</body>
+</html>
